@@ -1,0 +1,12 @@
+name: Auto Assign PR Reviewer
+on:
+  pull_request:
+    types: [opened, ready_for_review]
+jobs:
+  call-assign-workflow:
+    uses: appbrewingcompany/.github/.github/workflows/auto-assign-reviewer.yml@main
+    permissions:
+      pull-requests: write
+      contents: read
+    secrets:
+      PAT_TOKEN: ${{ secrets.PAT_TOKEN }}

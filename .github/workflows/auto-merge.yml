@@ -1,0 +1,11 @@
+name: Local Auto Merge
+on:
+  pull_request_review:
+    types: [submitted]
+  check_suite:
+    types: [completed]
+jobs:
+  call-auto-merge:
+    uses: appbrewingcompany/.github/.github/workflows/auto-merge.yml@main
+    secrets:
+      PAT_TOKEN: ${{ secrets.PAT_TOKEN }}

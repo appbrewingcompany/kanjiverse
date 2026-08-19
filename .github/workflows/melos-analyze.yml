@@ -1,0 +1,10 @@
+name: Melos Analyze and Test
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+jobs:
+  call-melos-analyze:
+    uses: appbrewingcompany/.github/.github/workflows/melos-analyze.yml@main
+    secrets:
+      PAT_TOKEN: ${{ secrets.PAT_TOKEN }}
+      SERVICE_ACCOUNT_JSON: ${{ secrets.SERVICE_ACCOUNT_JSON }}
