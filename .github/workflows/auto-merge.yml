@@ -1,0 +1,15 @@
+name: Auto Merge PR
+on:
+  pull_request_review:
+    types: [submitted]
+  check_suite:
+    types: [completed]
+jobs:
+  call-auto-merge:
+    uses: appbrewingcompany/.github/.github/workflows/auto-merge.yml@main
+    permissions:
+      pull-requests: write
+      contents: write
+      checks: read
+    secrets:
+      PAT_TOKEN: ${{ secrets.PAT_TOKEN }}
