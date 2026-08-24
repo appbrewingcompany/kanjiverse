@@ -1,0 +1,9 @@
+name: Conventional PR Title
+on:
+  pull_request:
+    types: [opened, edited, reopened, synchronize]
+jobs:
+  call-conventional-pr-title:
+    uses: appbrewingcompany/.github/.github/workflows/conventional-pr-title.yml@main
+    permissions:
+      pull-requests: read
