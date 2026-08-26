@@ -5,5 +5,7 @@ on:
 jobs:
   call-conventional-pr-title:
     uses: appbrewingcompany/.github/.github/workflows/conventional-pr-title.yml@main
+    with:
+      runner: ubuntu-latest  # public repo — org self-hosted runners cannot serve it
     permissions:
       pull-requests: read

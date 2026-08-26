@@ -1,15 +1,32 @@
+# Auto-merge thin caller. This repository is PUBLIC: org self-hosted
+# runners cannot serve it on the Free plan, and outside-triggered events
+# (fork PRs, outside reviews) must never reach the org runners — so
+# governance runs on GitHub-hosted runners (free and unlimited for public
+# repos). No MERGE_APP secrets on public repos: the reusable workflow
+# falls back to GITHUB_TOKEN.
+#
+# workflow_dispatch ("Run workflow" in the Actions tab) with a PR number
+# re-evaluates that PR — the escape hatch for green re-runs, which GitHub
+# does not emit check_suite events for.
 name: Auto Merge PR
 on:
   pull_request_review:
     types: [submitted]
   check_suite:
     types: [completed]
+  workflow_dispatch:
+    inputs:
+      pr-number:
+        description: PR number to re-evaluate (checks + approval gates still apply).
+        type: string
+        required: true
 jobs:
   call-auto-merge:
     uses: appbrewingcompany/.github/.github/workflows/auto-merge.yml@main
+    with:
+      pr-number: ${{ inputs.pr-number || '' }}
+      runner: ubuntu-latest
     permissions:
       pull-requests: write
       contents: write
       checks: read
-    secrets:
-      PAT_TOKEN: ${{ secrets.PAT_TOKEN }}
