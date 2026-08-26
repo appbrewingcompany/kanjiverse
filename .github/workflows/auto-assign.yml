@@ -5,6 +5,8 @@ on:
 jobs:
   call-auto-assign:
     uses: appbrewingcompany/.github/.github/workflows/auto-assign-reviewer.yml@main
+    with:
+      runner: ubuntu-latest  # public repo — org self-hosted runners cannot serve it
     permissions:
       pull-requests: write
       issues: write
